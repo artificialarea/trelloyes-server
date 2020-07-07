@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const winston = require('winston')
+const { v4: uuid } = require('uuid')
 const { NODE_ENV } = require('./config')
 
 const app = express()
@@ -15,6 +16,7 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
+app.use(express.json()) // built-in middleware to enable parsing of req.body
 // set up winston
 const logger = winston.createLogger({
   level: 'info',  // winston has six levels of severity: silly, debug, verbose, info, warn, and error.
@@ -119,6 +121,41 @@ app.get('/list/:id', (req, res) => {
   res
     .status(200)
     .json(list)
+})
+
+app.post('/card', (req, res) => {
+  const { title, content } = req.body
+
+  // validation
+  if(!title) {
+    return res
+      .status(400)
+      .send("Invalid data. Title required.")
+  }
+  
+  if(!content) {
+    return res
+      .status(400)
+      .send("Invalid data. Content required.")
+  }
+
+  // at this point all validation passed
+
+  const id = uuid()
+  const card = {
+    id,
+    title,
+    content,
+  }
+  cards.push(card)
+  // log card creation
+  logger.info(`Card with id ${id} created`)
+
+  res
+    .status(201)
+    .location(`http://localhost:8000/card/${id}`)
+    .json(card)
+
 })
 
 
