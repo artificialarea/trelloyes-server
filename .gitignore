@@ -1,2 +1,5 @@
 node_modules
 .env
+
+# so winston logs don't pollute the repo
+* .log 
