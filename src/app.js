@@ -7,6 +7,17 @@ const winston = require('winston')
 const { v4: uuid } = require('uuid')
 const { NODE_ENV } = require('./config')
 
+/* EXPRESS ROUTING ENDPOINTS ////////////////////
+GET /card
+GET /list
+POST /card
+POST /list
+GET /card/:id
+GET /list/:id
+DELETE /card/:id
+DELETE /list/:id
+///////////////////////////////////////////////*/
+
 const app = express()
 
 const morganOption = (NODE_ENV === 'production') 
