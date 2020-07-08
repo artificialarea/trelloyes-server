@@ -1,2 +1,9 @@
 {"message":"Unauthorized request to path: /list","level":"error"}
 {"message":"Unauthorized request to path: /list","level":"error"}
+{"message":"Card with id 56bac30b-4a9b-473d-83ec-423d3d942792 created","level":"info"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Card with id a2b447e9-6f3c-41ed-abd7-9931780f1da6 created","level":"info"}
+{"message":"Card with id 8 not found.","level":"error"}
+{"message":"Card with id 80202 not found.","level":"error"}
+{"message":"List with id 8 not found","level":"error"}

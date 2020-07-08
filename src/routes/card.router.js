@@ -8,7 +8,7 @@ const bodyParser = express.json()
 
 
 cardRouter
-  .route('/card')
+  .route('/')
   .get((req, res) => {
     res.json(cards)
   })
@@ -44,7 +44,7 @@ cardRouter
 
 
 cardRouter
-  .route('/card/:id')
+  .route('/:id')
   .get((req, res) => {
     console.log('doh!')
     const { id } = req.params

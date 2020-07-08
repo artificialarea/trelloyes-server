@@ -7,7 +7,7 @@ const listRouter = express.Router()
 const bodyParser = express.json()
 
 listRouter 
-  .route('/list')
+  .route('/')
   .get((req, res) => {
     res.json(lists)
   })
@@ -62,7 +62,7 @@ listRouter
 
 
 listRouter
-  .route('/list/:id')
+  .route('/:id')
   .get((req, res) => {
     const { id } = req.params
     const list = lists.find(li => li.id == id)

@@ -1,8 +1,8 @@
 const express = require('express')
 const { NODE_ENV } = require('../config')
 
-
-function errorHandler(error, req, res, next) {
+// catch-all error handler
+function serverErrorHandler(error, req, res, next) {
   let response
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } }
@@ -13,4 +13,4 @@ function errorHandler(error, req, res, next) {
   res.status(500).json(response)
 }
 
-module.exports = errorHandler
+module.exports = serverErrorHandler

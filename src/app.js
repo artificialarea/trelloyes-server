@@ -4,12 +4,13 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const validateBearerToken = require('./middleware/validateBearerToken')
-const errorHandler = require('./middleware/errorHandler')
+const fourOhFourErrorHandler = require('./middleware/fourOhFourErrorHandler')
+const serverErrorHandler = require('./middleware/serverErrorHandler')
 
 const { v4: uuid } = require('uuid')
 const { NODE_ENV } = require('./config')
-const cardRouter = require('./card/card-router')
-const listRouter = require('./list/list-router')
+const cardRouter = require('./routes/card.router')
+const listRouter = require('./routes/list.router')
 
 
 const app = express()
@@ -17,10 +18,16 @@ const app = express()
 app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'dev'))
 app.use(helmet())
 app.use(cors())
+
+app.get('/', (req, res) => {
+  return res.status(200).send('Hello, world!')
+})
+
 app.use(validateBearerToken)
-app.use(cardRouter)
-app.use(listRouter)
-app.use(errorHandler) // always last in the pipeline
+app.use('/card', cardRouter)
+app.use('/list', listRouter)
+app.use(fourOhFourErrorHandler) 
+app.use(serverErrorHandler) // always last in the pipeline
 
 
 module.exports = app
