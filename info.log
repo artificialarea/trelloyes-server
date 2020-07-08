@@ -7,3 +7,12 @@
 {"message":"Card with id 8 not found.","level":"error"}
 {"message":"Card with id 80202 not found.","level":"error"}
 {"message":"List with id 8 not found","level":"error"}
+{"message":"Card with id f1c45041-960a-4f54-9694-707dfab64816 deleted.","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"List with id 1 deleted.","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}

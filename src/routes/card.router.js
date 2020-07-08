@@ -75,10 +75,16 @@ cardRouter
     // There is a relationship between cards and lists, which complicates matters when deleting cards, which can be associated with one or more lists.
     // Remove card from lists
     // Assume cardIds are not duplicated in the cardIds array
+    // PROBLEM IS... IT DOESN' WORK. HMMMMMMMM
+    console.log('lists before: ', lists)
     lists.forEach(list => {
+      console.log('card id: ', id)
       const cardIds = list.cardIds.filter(cid => cid !== id);
+      console.log('cardIds, filtered of deleted id:', cardIds)
       list.cardIds = cardIds;
+      console.log('list.cardIds:', list.cardIds)
     });
+    console.log('lists after: ', lists)
 
     cards.splice(cardIndex, 1);
 
