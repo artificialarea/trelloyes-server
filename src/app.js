@@ -78,6 +78,7 @@ const lists = [
 ]
 // ^^ TEST DATA /////////////////////////////////
 
+// GET ////////////////////////////////////////////////
 
 app.get('/', (req, res) => {
   res.send('Hello, world!')
@@ -123,6 +124,7 @@ app.get('/list/:id', (req, res) => {
     .json(list)
 })
 
+// POST ////////////////////////////////////////////////
 app.post('/card', (req, res) => {
   const { title, content } = req.body
 
@@ -158,7 +160,57 @@ app.post('/card', (req, res) => {
 
 })
 
+app.post('/list', (req, res) => {
+  const { header, cardIds = [] } = req.body;
 
+  if (!header) {
+    logger.error(`Header is required`);
+    return res
+      .status(400)
+      .send('Invalid data');
+  }
+
+  // check card IDs
+  if (cardIds.length > 0) {
+    let valid = true;
+    // We need to check that all IDs passed in the list refer to actual IDs of cards in the cards array. We want to ensure that all cards in a list actually exist. This is known as 'referential integrity'.
+    cardIds.forEach(cid => {
+      const card = cards.find(c => c.id == cid);
+      if (!card) {
+        logger.error(`Card with id ${cid} not found in cards array.`);
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      return res
+        .status(400)
+        .send('Invalid data');
+    }
+  }
+
+  // get an id
+  const id = uuid();
+
+  const list = {
+    id,
+    header,
+    cardIds
+  };
+
+  lists.push(list);
+
+  logger.info(`List with id ${id} created`);
+
+  res
+    .status(201)
+    .location(`http://localhost:8000/list/${id}`)
+    .json({list});
+});
+
+
+
+// final middleware in the pipeline, for production
 app.use(function errorHandler(error, req, res, next) {
   let response
   if (NODE_ENV === 'production') {

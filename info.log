@@ -10,3 +10,7 @@
 {"message":"Card with id b202fd14-6e83-4406-8be7-4124a56d61fc created","level":"info"}
 {"message":"Card with id 1d8ffd81-a41e-4e12-af80-9a7cd719d244 created","level":"info"}
 {"message":"Card with id b47bbd24-c503-4bcd-887c-13c208001d3d created","level":"info"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"List with id 2106f98e-bb65-41d8-9d92-b6b11c95b998 created","level":"info"}
+{"message":"List with id b8ac5c84-3cb7-472d-8801-c7fd30ec4f50 created","level":"info"}
