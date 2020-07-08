@@ -27,7 +27,10 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
+app.use(validateBearerToken) // even better, give it's own file and import/require
 app.use(express.json()) // built-in middleware to enable parsing of req.body
+app.use(errorHandler) // final middleware in our pipeline
+
 // set up winston
 const logger = winston.createLogger({
   level: 'info',  // winston has six levels of severity: silly, debug, verbose, info, warn, and error.
@@ -44,7 +47,8 @@ if (NODE_ENV !== 'production') {
 }
 
 // VALIDATION MIDDLEWARE
-app.use(function validateBearerToken(req, res, next) {
+// REFACTOR >> // even better, give it's own file and import/require
+function validateBearerToken(req, res, next) {
   const apiToken = process.env.API_TOKEN
   const authToken = req.get('Authorization')
 
@@ -54,7 +58,7 @@ app.use(function validateBearerToken(req, res, next) {
   }
 
   next()
-})
+}
 
 
 // TEST DATA /////////////////////////////////
@@ -284,7 +288,7 @@ app.delete('/card/:id', (req, res) => {
 
 
 // final middleware in the pipeline, for production
-app.use(function errorHandler(error, req, res, next) {
+function errorHandler(error, req, res, next) {
   let response
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } }
@@ -293,6 +297,6 @@ app.use(function errorHandler(error, req, res, next) {
     response = { message: error.message, error }
   }
   res.status(500).json(response)
-})
+}
 
 module.exports = app

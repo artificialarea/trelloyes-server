@@ -19,3 +19,18 @@
 {"message":"Card with id 2 deleted.","level":"info"}
 {"message":"List with id 1 deleted.","level":"info"}
 {"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Card with id 2a7fb7da-714c-4046-8231-e34c3c39e8a6 created","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"List with id 1 deleted.","level":"info"}
+{"message":"List with id d0069c0f-3261-4fe3-ba51-1f44d83df7b3 created","level":"info"}
+{"message":"List with id 1 not found","level":"error"}
+{"message":"Card with id 2eb7cdef-a6a4-4915-af3f-fc952b3781e4 created","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"List with id 1 deleted.","level":"info"}
+{"message":"List with id 1d6f6cc2-2da9-4c8e-8acc-dc486f468f5d created","level":"info"}
+{"message":"List with id 1 not found","level":"error"}
+{"message":"List with id 1 not found","level":"error"}
+{"message":"Card with id 49450943-398d-4e48-b7f3-8126e293cd34 created","level":"info"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"List with id 10b2fd18-9c0a-4e4a-aa75-c9cf9199a0a9 created","level":"info"}
+{"message":"List with id 1 deleted.","level":"info"}
