@@ -1,6 +1,6 @@
 const express = require('express')
 const { v4: uuid } = require('uuid')
-const logger = require('../logger')
+const logger = require('../middleware/logger')
 const { cards, lists } = require('../store')
 
 const cardRouter = express.Router()
