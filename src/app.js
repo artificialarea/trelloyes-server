@@ -78,7 +78,9 @@ const lists = [
 ]
 // ^^ TEST DATA /////////////////////////////////
 
+///////////////////////////////////////////////////////
 // GET ////////////////////////////////////////////////
+///////////////////////////////////////////////////////
 
 app.get('/', (req, res) => {
   res.send('Hello, world!')
@@ -124,7 +126,11 @@ app.get('/list/:id', (req, res) => {
     .json(list)
 })
 
-// POST ////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////
+// POST ///////////////////////////////////////////////
+///////////////////////////////////////////////////////
+
 app.post('/card', (req, res) => {
   const { title, content } = req.body
 
@@ -208,6 +214,62 @@ app.post('/list', (req, res) => {
     .json({list});
 });
 
+
+///////////////////////////////////////////////////////
+// DELETE /////////////////////////////////////////////
+///////////////////////////////////////////////////////
+
+app.delete('/list/:id', (req, res) => {
+  const { id } = req.params;
+
+  const listIndex = lists.findIndex(li => li.id == id);
+
+  if (listIndex === -1) {
+    logger.error(`List with id ${id} not found.`);
+    return res
+      .status(404)
+      .send('Not Found');
+  }
+
+  lists.splice(listIndex, 1);
+
+  logger.info(`List with id ${id} deleted.`);
+  res
+    .status(204)
+    .end();
+});
+
+// There is a relationship between cards and lists, which complicates matters when deleting cards, which can be associated with one or more lists.
+// Suppose you have a card that belongs to several lists. If you delete the card, it would be necessary to also remove the card ID from those lists. Otherwise, we end up with lists referring to cards that do not exist.
+// Deleting the list is a simple matter of removing it from the array of lists after validating that the ID is correct. For the card, it would be a similar task except we add the step to remove the card from all lists first.
+
+app.delete('/card/:id', (req, res) => {
+  const { id } = req.params;
+
+  const cardIndex = cards.findIndex(c => c.id == id);
+
+  if (cardIndex === -1) {
+    logger.error(`Card with id ${id} not found.`);
+    return res
+      .status(404)
+      .send('Not found');
+  }
+
+  // remove card from lists
+  // assume cardIds are not duplicated in the cardIds array
+  lists.forEach(list => {
+    const cardIds = list.cardIds.filter(cid => cid !== id);
+    list.cardIds = cardIds;
+  });
+
+  cards.splice(cardIndex, 1);
+
+  logger.info(`Card with id ${id} deleted.`);
+
+  res
+    .status(204)
+    .end();
+});
 
 
 // final middleware in the pipeline, for production

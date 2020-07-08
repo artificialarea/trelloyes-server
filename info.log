@@ -14,3 +14,8 @@
 {"message":"Unauthorized request to path: /","level":"error"}
 {"message":"List with id 2106f98e-bb65-41d8-9d92-b6b11c95b998 created","level":"info"}
 {"message":"List with id b8ac5c84-3cb7-472d-8801-c7fd30ec4f50 created","level":"info"}
+{"message":"Card with id 1 deleted.","level":"info"}
+{"message":"Card with id 1 not found.","level":"error"}
+{"message":"Card with id 2 deleted.","level":"info"}
+{"message":"List with id 1 deleted.","level":"info"}
+{"message":"Unauthorized request to path: /","level":"error"}
