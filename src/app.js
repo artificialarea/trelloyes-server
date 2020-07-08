@@ -3,6 +3,8 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
+const validateBearerToken = require('./middleware/validateBearerToken')
+const errorHandler = require('./middleware/errorHandler')
 
 const { v4: uuid } = require('uuid')
 const { NODE_ENV } = require('./config')
@@ -20,30 +22,5 @@ app.use(cardRouter)
 app.use(listRouter)
 app.use(errorHandler) // always last in the pipeline
 
-
-// MIDDLEWARE functions
-
-function validateBearerToken(req, res, next) {
-  const apiToken = process.env.API_TOKEN
-  const authToken = req.get('Authorization')
-
-  if (!authToken || authToken.split(' ')[1] !== apiToken) {
-    logger.error(`Unauthorized request to path: ${req.path}`); // new via winston
-    return res.status(401).json({ error: 'Unauthorized request' })
-  }
-
-  next()
-}
-
-function errorHandler(error, req, res, next) {
-  let response
-  if (NODE_ENV === 'production') {
-    response = { error: { message: 'server error' } }
-  } else {
-    console.error(error)
-    response = { message: error.message, error }
-  }
-  res.status(500).json(response)
-}
 
 module.exports = app
