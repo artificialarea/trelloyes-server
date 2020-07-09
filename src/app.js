@@ -3,9 +3,9 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const validateBearerToken = require('./middleware/validateBearerToken')
-const fourOhFourErrorHandler = require('./middleware/fourOhFourErrorHandler')
-const serverErrorHandler = require('./middleware/serverErrorHandler')
+const validateBearerToken = require('./middleware/validate-bearer-token')
+const errorHandlerFourOhFour = require('./middleware/error-handler-four-oh-four')
+const errorHandler = require('./middleware/error-handler')
 
 const { v4: uuid } = require('uuid')
 const { NODE_ENV } = require('./config')
@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 app.use(validateBearerToken)
 app.use('/card', cardRouter)
 app.use('/list', listRouter)
-app.use(fourOhFourErrorHandler) 
-app.use(serverErrorHandler) // always last in the pipeline
+app.use(errorHandlerFourOhFour) 
+app.use(errorHandler) // always last in the pipeline
 
 
 module.exports = app
